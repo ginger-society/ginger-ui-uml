@@ -1,0 +1,106 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install ginger-apps
+        run: bash -c "$(curl -fsSL https://raw.githubusercontent.com/ginger-society/infra-as-code-repo/main/rust-helpers/install-pipeline-clis.sh)"
+
+      - name: Authenticate with ginger-auth
+        id: ginger-auth
+        run: ginger-auth token-login ${{ secrets.GINGER_TOKEN }}
+
+      - name: Update pipeline to running
+        run: ginger-connector update-pipeline stage running
+
+      - uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 8.7.1
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.5
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            email=admin@gingersociety.org
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish stories
+        run: |
+          docker buildx build . \
+            -t deb-portal-builder \
+            -f Dockerfile.book \
+            --build-arg GINGER_TOKEN=${{ secrets.GINGER_TOKEN }} \
+            --build-arg AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+            --build-arg AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }} \
+            --build-arg DISTRIBUTION_ID=${{ secrets.DISTRIBUTION_ID }}
+        continue-on-error: false
+
+      - name: Fail if Publish stories failed
+        if: failure()
+        run: ginger-connector update-pipeline stage failed
+        continue-on-error: false
+
+      - name: Build prod release
+        run: pnpm build
+        continue-on-error: false
+
+      - name: Fail if Build prod release failed
+        if: failure()
+        run: ginger-connector update-pipeline stage failed
+        continue-on-error: false
+
+      - name: Publish to npm
+        if: success()
+        run: pnpm publish --no-git-checks
+        continue-on-error: false
+
+      - name: Fail if prod publish failed
+        if: failure()
+        run: ginger-connector update-pipeline stage failed
+        continue-on-error: false
+
+      - name: Update pipeline to passing
+        if: success()
+        run: ginger-connector update-pipeline stage passing
+
+      - name: Trigger dependent pipelines
+        if: success()
+        run: ginger-connector trigger-dependent-pipelines ${{ secrets.GH_TOKEN }}
+
+      - name: Trigger Homepage pipeline
+        if: success()
+        run: ginger-connector trigger-pipeline homepage ${{ secrets.GH_TOKEN }}
+
+      - name: Stop execution if any step failed
+        if: failure()
+        run: exit 1

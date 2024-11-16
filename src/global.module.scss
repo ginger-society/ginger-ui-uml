@@ -1,0 +1,52 @@
+:root {
+	--font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	--font-weight: 700;
+	--border-radius: 0.5rem;
+	--primary-color: black;
+	--primary-accent-color: #dddddd;
+	--primary-bg-color: white;
+	--secondary-color: #333;
+	--secondary-bg-color: rgb(242, 242, 242);
+	--box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px;
+	--box-shadow-elivated: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+	--loader-border-color: #276ef1;
+	--loader-bg-color: #eeeeee;
+	--small-font-size: 12px;
+	--small-padding: 10px 16px;
+	--medium-font-size: 14px;
+	--medium-padding: 11px 20px;
+	--large-font-size: 16px;
+	--large-padding: 12px 24px;
+
+	--danger-color: red;
+	--danger-bg-color: #ffebeb;
+	--success-color: green;
+	--success-bg-color: #e8f5e9;
+	--warning-color: orange;
+	--warning-bg-color: #fff8e1;
+	--info-color: blue;
+	--info-bg-color: rgb(200, 200, 253);
+	--hover-bg-color: #d9d9d9;
+	--muted-color: #6c757d;
+}
+
+html[data-theme='dark'] {
+	--primary-color: white;
+	--primary-bg-color: black;
+	--secondary-color: #ccc;
+	--secondary-bg-color: #333;
+	--box-shadow: rgba(255, 255, 255, 0.15) 0px 0px 0px 1px inset;
+	--loader-border-color: #eeeeee;
+	--loader-bg-color: #276ef1;
+	--primary-accent-color: #212121;
+
+	--danger-dark-color: darkred;
+	--danger-bg-dark-color: #5c1a1a;
+	--success-dark-color: darkgreen;
+	--success-bg-dark-color: #1b5e20;
+	--warning-dark-color: darkorange;
+	--warning-bg-dark-color: #4e342e;
+	--hover-bg-color: #444444;
+	--info-color: lightblue;
+	--muted-color: #aaa;
+}

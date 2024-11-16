@@ -1,0 +1,15 @@
+{
+	"name": "uilib1",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "uilib",
+	"workspaceFolder": "/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode",
+				"unifiedjs.vscode-mdx",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	}
+}
