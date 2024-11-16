@@ -32,7 +32,11 @@ module.exports = {
 			extends: ['plugin:@typescript-eslint/recommended'],
 			rules: {
 				'@typescript-eslint/ban-ts-comment': 'warn',
-				'@typescript-eslint/explicit-module-boundary-types': 'off'
+				'@typescript-eslint/explicit-module-boundary-types': 'off',
+				'@typescript-eslint/no-empty-function': 'off',
+				'jsx-a11y/click-events-have-key-events': 'off',
+				'jsx-a11y/no-static-element-interactions': 'off',
+				'jsx-a11y/no-noninteractive-element-interactions': 'off'
 			}
 		},
 		{
