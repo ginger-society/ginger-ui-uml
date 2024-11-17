@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import UMLEditor from '.'
+import '../../../node_modules/@ginger-society/ginger-ui/dist/esm/index.css'
 import { LegendConfigs, LegendItemT } from '../Legend/types'
 import { Block, BlockType, Connection, EditorData, MarkerType } from './types'
 
@@ -121,8 +122,8 @@ export const ExampleStory: React.FC = () => {
 	}
 
 	return (
-		<div style={{ padding: '20px' }}>
-			<h2>UML Editor Example</h2>
+		<div>
+			{/* <h2>UML Editor Example</h2> */}
 
 			{/* UML Editor Component */}
 			<UMLEditor

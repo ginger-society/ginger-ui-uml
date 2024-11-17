@@ -1,6 +1,7 @@
 import { Text, TextSize, TextWeight } from '@ginger-society/ginger-ui'
 import React from 'react'
 import { LegendItemProps, LegendProps, MarkerType } from '../UMLEditor/types'
+import styles from './legend.module.scss'
 
 const LegendItem: React.FC<LegendItemProps> = ({ item, marker }) => {
 	const getMarker = () => {
@@ -32,7 +33,7 @@ const LegendItem: React.FC<LegendItemProps> = ({ item, marker }) => {
 	}
 
 	return (
-		<div className="legend-item">
+		<div className={styles['legend-item']}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="32"
@@ -49,7 +50,7 @@ const LegendItem: React.FC<LegendItemProps> = ({ item, marker }) => {
 
 const Legend: React.FC<LegendProps> = ({ items, onClick, title }) => {
 	return (
-		<div className="legend">
+		<div className={styles['legend']}>
 			<Text weight={TextWeight.Bold}>{title}</Text>
 			<ul>
 				{Object.keys(items).map((key, index) => {

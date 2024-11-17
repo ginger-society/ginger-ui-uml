@@ -18,6 +18,7 @@ import {
 	MarkerType,
 	UMLEditorProps
 } from './types'
+import styles from './umlEditor.module.scss'
 
 const UMLEditor = ({
 	setBlocks,
@@ -196,7 +197,8 @@ const UMLEditor = ({
 	return (
 		<>
 			<div
-				className="canvas-container"
+				id="canvas-container"
+				className={styles['canvas-container']}
 				onContextMenu={handleContextMenu}
 				onClick={() => {
 					setHighlighted(undefined)
@@ -211,7 +213,7 @@ const UMLEditor = ({
 						position={{ x: block.position.left, y: block.position.top }}
 					>
 						<div
-							className={`card block-card ${block.data['blinkClass']} ${
+							className={`${styles['block-card']} ${block.data['blinkClass']} ${
 								highlighted === block.id ? 'bring-forward' : ''
 							}`}
 							ref={block.ref}
@@ -220,9 +222,9 @@ const UMLEditor = ({
 							<div
 								className={`${
 									block.type === BlockType.Enum
-										? 'options-header'
-										: 'table-header'
-								} block-header ${allowDrag ? 'handle' : ''}`}
+										? styles['options-header']
+										: styles['table-header']
+								} ${styles['block-header']} ${allowDrag ? 'handle' : ''}`}
 								style={{
 									backgroundColor: block.data['color'],
 									borderTop: `solid 1px ${block.data['color']}`,
@@ -254,7 +256,7 @@ const UMLEditor = ({
 										toggleSlider(EditorTypeEnum.ROW, block.id, index)
 									}
 									key={index}
-									className={`row-content hoverable`}
+									className={`${styles['row-content']} ${styles['hoverable']}`}
 								>
 									<RowRenderer key={index} rowData={row} />
 								</div>
@@ -264,7 +266,7 @@ const UMLEditor = ({
 									onClick={() => {
 										addNewRow(block.id)
 									}}
-									className="row-content hoverable"
+									className={`${styles['row-content']} ${styles['hoverable']}`}
 								>
 									Add new row
 								</div>
@@ -272,7 +274,7 @@ const UMLEditor = ({
 							{block.type === BlockType.Enum && (
 								<div
 									onClick={() => toggleSlider(EditorTypeEnum.BLOCK, block.id)}
-									className="row-content"
+									className={styles['row-content']}
 								>
 									<EnumRowRenderer blockData={block} />
 								</div>
@@ -286,7 +288,7 @@ const UMLEditor = ({
 					</Draggable>
 				))}
 				{/* Render connections */}
-				<svg ref={svgRef} className="svg-container">
+				<svg ref={svgRef} className={styles['svg-container']}>
 					<defs>
 						<filter
 							id="highlight-shadow"
@@ -387,7 +389,7 @@ const UMLEditor = ({
 				{contextMenu && allowEdit && (
 					<div
 						ref={contextMenuRef}
-						className="context-menu"
+						className={styles['context-menu']}
 						style={{ top: contextMenu.y, left: contextMenu.x }}
 					>
 						<button onClick={() => handleAddBlock(BlockType.Table)}>

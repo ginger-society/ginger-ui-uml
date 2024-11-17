@@ -6,6 +6,15 @@ export function calculatePath(
 	rows1: number,
 	rows2: number
 ) {
+	const canvasContainer = document.getElementById('canvas-container')
+	let canvasOffsetX = 0
+	let canvasOffsetY = 0
+	if (canvasContainer) {
+		const canvasBox = canvasContainer.getBoundingClientRect()
+		canvasOffsetX = canvasBox.x
+		canvasOffsetY = canvasBox.y
+	}
+
 	if (!rect1 || !rect2) return { d: '', midX: 0, midY: 0 }
 
 	const distanceRightLeft = Math.abs(rect1.right - rect2.left)
@@ -61,7 +70,10 @@ export function calculatePath(
 			y2 = rect2.top + headerRowHeight + rowHeight2 * toRow + window.scrollY
 		}
 	}
-
+	x2 = x2 - canvasOffsetX
+	x1 = x1 - canvasOffsetX
+	y1 = y1 - canvasOffsetY
+	y2 = y2 - canvasOffsetY
 	// Control points for Bezier curve
 	const controlPointOffset = Math.abs(x2 - x1) / 2 // Smoother curve with distance of control points
 	const controlX1 = x1 + controlPointOffset
