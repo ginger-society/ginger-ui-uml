@@ -11,8 +11,8 @@ export function calculatePath(
 	let canvasOffsetY = 0
 	if (canvasContainer) {
 		const canvasBox = canvasContainer.getBoundingClientRect()
-		canvasOffsetX = canvasBox.x
-		canvasOffsetY = canvasBox.y
+		canvasOffsetX = canvasBox.x + window.scrollX
+		canvasOffsetY = canvasBox.y + window.scrollY
 	}
 
 	if (!rect1 || !rect2) return { d: '', midX: 0, midY: 0 }
