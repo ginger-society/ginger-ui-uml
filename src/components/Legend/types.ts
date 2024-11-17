@@ -1,4 +1,4 @@
-import { MarkerType } from '@/components/organisms/UMLEditor/types'
+import { MarkerType } from '../UMLEditor/types'
 
 export type LegendConfigs = Partial<{
 	[key in MarkerType]: LegendItemT
