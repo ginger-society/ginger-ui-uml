@@ -103,7 +103,8 @@
 	"name": "@ginger-society/ginger-ui-uml",
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17 || ^18",
-		"react-dom": "^16.8.0 || ^17 || ^18"
+		"react-dom": "^16.8.0 || ^17 || ^18",
+		"react-draggable": "^4.4.6"
 	},
 	"publishConfig": {
 		"access": "public"
