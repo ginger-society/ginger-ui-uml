@@ -46,7 +46,7 @@ export const ExampleStory: React.FC = () => {
 		}
 	])
 
-	const [editorData, setEditorData] = useState<EditorData>()
+	const [_, setEditorData] = useState<EditorData>()
 
 	// Legend configuration
 	const legendConfigs: LegendConfigs = {
