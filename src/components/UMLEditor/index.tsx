@@ -30,7 +30,7 @@ const UMLEditor = ({
 	BlockEditor,
 	setEditorData,
 	HeadingRenderer = ({ blockData }) => {
-		return blockData.id
+		return <>blockData.id</>
 	},
 	FooterRenderer = ({ blockData, allowEdit }) => {
 		return <></>
@@ -39,12 +39,12 @@ const UMLEditor = ({
 	allowEdit = true,
 	allowDrag = true,
 	RowRenderer = ({ rowData }) => {
-		return rowData.id
+		return <>rowData.id</>
 	},
 	updateConnections,
 	createNewBlock,
 	EnumRowRenderer = ({ blockData }) => {
-		return blockData.id
+		return <>blockData.id</>
 	},
 	handleLegendClick
 }: UMLEditorProps) => {
