@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import UMLEditor from '.'
+import { UMLEditor } from '.'
 import '../../../node_modules/@ginger-society/ginger-ui/dist/esm/index.css'
 import { LegendConfigs, LegendItemT } from '../Legend/types'
 import { Block, BlockType, Connection, EditorData, MarkerType } from './types'
